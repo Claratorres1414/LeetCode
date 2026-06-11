@@ -26,9 +26,13 @@ func isValid(s string) bool {
 		stack = append(stack, parentheses[i])
 	}
 
+	if len(stack) > 0 {
+		return false
+	}
+
 	return true
 }
 
 func main() {
-	fmt.Println(isValid("()"))
+	fmt.Println(isValid("["))
 }
