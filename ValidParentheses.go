@@ -1,16 +1,34 @@
 package main
 
+import "fmt"
+
 func isValid(s string) bool {
+	parenthesesMap := map[rune]rune{
+		')': '(',
+		']': '[',
+		'}': '{',
+	}
+
 	parentheses := []rune(s)
-	if len(parentheses)%2 != 0 {
-		return false
-	}
+	var stack []rune
+
 	for i := 0; i < len(parentheses); i++ {
-		index := i
-		char := parentheses[index]
-		closure := len(parentheses) - 1
-		for j := closure; j > index; j-- {
+		char := parentheses[i]
+		closed, ok := parenthesesMap[char]
+		if ok {
+			stackTop := len(stack) - 1
+			if stack[stackTop] == closed {
+				stack = stack[:stackTop]
+				continue
+			}
+			return false
 		}
+		stack = append(stack, parentheses[i])
 	}
+
 	return true
+}
+
+func main() {
+	fmt.Println(isValid("()"))
 }
