@@ -16,6 +16,9 @@ func isValid(s string) bool {
 		char := parentheses[i]
 		closed, ok := parenthesesMap[char]
 		if ok {
+			if len(stack) == 0 {
+				return false
+			}
 			stackTop := len(stack) - 1
 			if stack[stackTop] == closed {
 				stack = stack[:stackTop]
@@ -34,5 +37,5 @@ func isValid(s string) bool {
 }
 
 func main() {
-	fmt.Println(isValid("["))
+	fmt.Println(isValid("]"))
 }
