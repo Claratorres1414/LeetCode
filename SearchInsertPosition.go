@@ -7,10 +7,20 @@ func searchInsert(nums []int, target int) int {
 		if nums[i] == target {
 			return i
 		} else if target < nums[i] {
+			if i-1 >= 0 && nums[i-1] < target {
+				return i
+			}
 			i = i / 2
 		} else if target > nums[i] {
+			if i+1 < len(nums) && target < nums[i+1] {
+				return i + 1
+			}
 			i++
 		}
+	}
+
+	if nums[len(nums)-1] < target {
+		return len(nums)
 	}
 
 	return 0
