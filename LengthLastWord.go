@@ -1,8 +1,15 @@
 package main
 
-import "strings"
-
 func lengthOfLastWord(s string) int {
-	words := strings.Fields(s)
-	return len(words[len(words)-1])
+	val := 0
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] != ' ' {
+			val++
+		} else if s[i] == ' ' && val != 0 {
+			return val
+		} else if s[i] == ' ' && val == 0 {
+			continue
+		}
+	}
+	return val
 }
