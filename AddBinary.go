@@ -1,35 +1,38 @@
 package main
 
-import "strconv"
+import (
+	"fmt"
+)
 
 func addBinary(a string, b string) string {
-	if len(b) == 0 {
-		return a
-	}
+	i := len(a) - 1
+	j := len(b) - 1
 
-	s := ""
 	carry := 0
 
-	for c := max(len(a), len(b)) - 1; c >= 0; c-- {
-		digitA := 0
-		digitB := 0
+	res := ""
 
-		if c < len(a) {
-			digitA = int(a[c])
+	for i >= 0 || j >= 0 || carry > 0 {
+		sum := carry
+
+		if i >= 0 {
+			sum += int(a[i] - '0')
+			i--
 		}
 
-		if c < len(b) {
-			digitB = int(b[c])
+		if j >= 0 {
+			sum += int(b[j] - '0')
+			j--
 		}
 
-		total := carry + digitA + digitB
-		char := strconv.Itoa(total % 2)
-		s = char + s
-		carry = total / 2
+		res = string(byte(sum%2)+'0') + res
+
+		carry = sum / 2
 	}
 
-	if carry > 0 {
-		s = "1" + s
-	}
-	return s
+	return res
+}
+
+func main() {
+	fmt.Println(addBinary("1010", "1011"))
 }
