@@ -1,26 +1,35 @@
 package main
 
+import "strconv"
+
 func addBinary(a string, b string) string {
 	if len(b) == 0 {
 		return a
 	}
 
-	aRunes := []rune(a)
-	bRunes := []rune(b)
 	s := ""
 	carry := 0
 
-	if len(aRunes) > len(bRunes) {
-		pointer := len(bRunes) - 1
-		for i := len(aRunes) - 1; i >= 0; i-- {
-			if aRunes[i] != bRunes[pointer] && carry == 0 {
-				aRunes[i] = '1'
-			} else if aRunes[i] == '1' && carry == 0 {
-				aRunes[i] = '0'
-				carry = 1
-			}
+	for c := max(len(a), len(b)) - 1; c >= 0; c-- {
+		digitA := 0
+		digitB := 0
+
+		if c < len(a) {
+			digitA = int(a[c])
 		}
+
+		if c < len(b) {
+			digitB = int(b[c])
+		}
+
+		total := carry + digitA + digitB
+		char := strconv.Itoa(total % 2)
+		s = char + s
+		carry = total / 2
 	}
 
+	if carry > 0 {
+		s = "1" + s
+	}
 	return s
 }
