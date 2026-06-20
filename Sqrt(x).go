@@ -3,21 +3,24 @@ package main
 import "fmt"
 
 func mySqrt(x int) int {
-	i := 0
-	j := 1
+	l := 0
+	r := x
+	result := 0
 
-	for x > 0 {
-		if i*i == x {
-			return i
-		} else if i*i < x && j*j > x {
-			return i
+	for l <= r {
+		mid := l + ((r - l) / 2)
+
+		if mid*mid > x {
+			r = mid - 1
+		} else if mid*mid < x {
+			l = mid + 1
+			result = mid
+		} else {
+			return mid
 		}
-
-		i++
-		j++
 	}
 
-	return 0
+	return result
 }
 
 func main() {
