@@ -1,33 +1,24 @@
 package main
 
 func merge(nums1 []int, m int, nums2 []int, n int) {
-	l := m + n
-	auxPointer := 0
-
 	if m == 0 {
-		for i := 0; i < n; i++ {
-			nums1[i] = nums2[i]
-		}
+		copy(nums1, nums2)
 	}
 
-	for i := 0; i < l; i++ {
-		if i < m-1 {
-			if nums1[i] >= nums2[auxPointer] {
-				for j := i + 1; j < l; j++ {
-					nums1[j] = nums1[j-1]
-				}
-				nums1[i] = nums2[auxPointer]
-			} else if nums1[i] <= nums2[auxPointer] {
-				for j := i + 1; j < l; j++ {
-					nums1[j+1] = nums1[j]
-				}
-				nums1[i+1] = nums2[auxPointer]
-			}
-			auxPointer++
+	m--
+	n--
+
+	for i := len(nums1) - 1; i >= 0 && n >= 0; i-- {
+		if m >= 0 && nums1[m] > nums2[n] {
+			nums1[i] = nums1[m]
+			m--
+			continue
 		}
+		nums1[i] = nums2[n]
+		n--
 	}
 }
 
 func main() {
-	merge([]int{1, 2, 3, 0, 0, 0}, 3, []int{2, 5, 6}, 3)
+	merge([]int{2, 0}, 1, []int{1}, 1)
 }
