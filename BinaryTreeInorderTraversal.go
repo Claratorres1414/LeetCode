@@ -9,6 +9,7 @@ type TreeNode struct {
 var res []int
 
 func inorderTraversal(root *TreeNode) []int {
+	res = make([]int, 0)
 	inorder(root)
 	return res
 }
