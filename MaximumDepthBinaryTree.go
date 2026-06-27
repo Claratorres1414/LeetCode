@@ -8,35 +8,12 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-var dMax = 0
-var dist = 0
-
 func maxDepth(root *TreeNode) int {
-	dMax = 0
-	dist = 0
 	if root == nil {
 		return 0
 	}
-	findMaxDepth(root)
-	if dMax < dist {
-		dMax = dist
-	}
-	return dMax
-}
 
-func findMaxDepth(node *TreeNode) {
-	if node == nil {
-		if dist > dMax {
-			dMax = dist
-		}
-		dist = 0
-		return
-	}
-	dist++
-	findMaxDepth(node.Left)
-	dist--
-	findMaxDepth(node.Right)
-	dist++
+	return max(maxDepth(root.Left), maxDepth(root.Right)) + 1
 }
 
 func main() {
