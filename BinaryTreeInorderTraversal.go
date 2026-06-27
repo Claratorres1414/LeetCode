@@ -1,11 +1,5 @@
 package main
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 var res []int
 
 func inorderTraversal(root *TreeNode) []int {
