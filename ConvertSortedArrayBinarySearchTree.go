@@ -1,23 +1,23 @@
 package main
 
+var numsG []int
+
 func sortedArrayToBST(nums []int) *TreeNode {
-	mid := len(nums) / 2
-	l := mid - 1
-	r := mid + 1
-	bst := &TreeNode{Val: nums[mid]}
-	lNode := bst
-	rNode := bst
-	for l >= 0 || r < len(nums) {
-		if l >= 0 {
-			lNode.Left = &TreeNode{Val: nums[l]}
-			lNode = lNode.Left
-			l--
-		}
-		if r < len(nums) {
-			rNode.Right = &TreeNode{Val: nums[r]}
-			rNode = rNode.Right
-			r++
-		}
+	numsG = nums
+
+	return helper(0, len(nums)-1)
+}
+
+func helper(l int, r int) *TreeNode {
+	if l > r {
+		return nil
 	}
-	return bst
+
+	mid := (l + r) / 2
+
+	root := &TreeNode{Val: numsG[mid]}
+	root.Left = helper(l, mid-1)
+	root.Right = helper(mid+1, r)
+
+	return root
 }
