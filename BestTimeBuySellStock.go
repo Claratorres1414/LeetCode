@@ -7,41 +7,20 @@ func maxProfit(prices []int) int {
 		return 0
 	}
 
-	dCompra := 0
-	vCompra := prices[0]
-	dVenda := 1
-	vVenda := prices[1]
-	result := vVenda - vCompra
+	l, r := 0, 1
+	maxP := 0
 
-	for i := 0; i < len(prices); i++ {
-		if prices[i] <= vCompra || prices[i] >= vVenda {
-			if i < len(prices)-1 {
-				if prices[i] == 0 && prices[i+1] == prices[i] {
-					continue
-				}
-			}
-			for j := i; j < len(prices); j++ {
-				if prices[j]-prices[i] >= result {
-					vCompra = prices[i]
-					dCompra = i
-
-					dVenda = j
-					vVenda = prices[j]
-					result = vVenda - vCompra
-				} else if prices[j]-vCompra >= result {
-					dVenda = j
-					vVenda = prices[j]
-					result = vVenda - vCompra
-				}
-			}
+	for r < len(prices) {
+		if prices[l] < prices[r] {
+			profit := prices[r] - prices[l]
+			maxP = max(maxP, profit)
+		} else {
+			l = r
 		}
+		r++
 	}
 
-	if dCompra < dVenda && vVenda > vCompra {
-		return result
-	}
-
-	return 0
+	return maxP
 }
 
 func main() {
