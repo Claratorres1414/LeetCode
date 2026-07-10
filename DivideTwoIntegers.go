@@ -5,12 +5,21 @@ import (
 )
 
 func divide(dividend int, divisor int) int {
-	if dividend == 0 {
+	const (
+		IntMin = -(1 << 31)
+		IntMax = (1 << 31) - 1
+	)
+
+	if dividend == IntMin && divisor == -1 {
+		return IntMax
+	} else if dividend == IntMax && divisor == -1 {
+		return -IntMax
+	} else if dividend == 0 {
 		return 0
 	} else if divisor == 1 {
 		return dividend
 	} else if divisor == -1 {
-		return 0 - dividend
+		return -dividend
 	}
 	times := 0
 	if dividend > 0 && divisor > 0 {
@@ -19,6 +28,7 @@ func divide(dividend int, divisor int) int {
 		} else if divisor > dividend {
 			return 0
 		}
+		times = 1
 		for dividend >= divisor {
 			dividend -= divisor
 			if dividend >= divisor {
@@ -48,6 +58,7 @@ func divide(dividend int, divisor int) int {
 		} else if divisor < dividend {
 			return 0
 		}
+		times = 1
 		for dividend <= divisor {
 			dividend -= divisor
 			if dividend <= divisor {
