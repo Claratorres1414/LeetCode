@@ -3,16 +3,10 @@ package main
 import "fmt"
 
 func singleNumber(nums []int) int {
-	var res int
+	res := 0
 
-	for i := 0; i < len(nums); i++ {
-		for j := 0; j < len(nums); j++ {
-			if nums[i] == nums[j] && i != j {
-				break
-			} else if j == len(nums)-1 {
-				return nums[i]
-			}
-		}
+	for _, n := range nums {
+		res ^= n
 	}
 
 	return res
