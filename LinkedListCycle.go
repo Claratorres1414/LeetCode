@@ -8,17 +8,19 @@ type ListNode struct {
 }
 
 func hasCycle(head *ListNode) bool {
-	
-	tail := head
-	var arr []int
-	for tail != nil {
-		for i := 0; i < len(arr); i++ {
-			if arr[i] == tail.Val {
-				return true
-			}
+	s := head
+	f := head
+
+	for f != nil {
+		s = s.Next
+		f = f.Next
+		if f == nil {
+			return false
 		}
-		arr = append(arr, tail.Val)
-		tail = tail.Next
+		f = f.Next
+		if s == f {
+			return true
+		}
 	}
 
 	return false
