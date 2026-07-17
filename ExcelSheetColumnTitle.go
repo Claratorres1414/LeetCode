@@ -1,0 +1,67 @@
+package main
+
+import "fmt"
+
+var alf = map[int]string{
+	1:  "A",
+	2:  "B",
+	3:  "C",
+	4:  "D",
+	5:  "E",
+	6:  "F",
+	7:  "G",
+	8:  "H",
+	9:  "I",
+	10: "J",
+	11: "K",
+	12: "L",
+	13: "M",
+	14: "N",
+	15: "O",
+	16: "P",
+	17: "Q",
+	18: "R",
+	19: "S",
+	20: "T",
+	21: "U",
+	22: "V",
+	23: "W",
+	24: "X",
+	25: "Y",
+	26: "Z",
+}
+
+func convertToTitle(columnNumber int) string {
+	result := ""
+
+	chars := calc(columnNumber)
+
+	for i := len(chars) - 1; i >= 0; i-- {
+		result += alf[chars[i]]
+	}
+
+	return result
+}
+
+func calc(num int) []int {
+	var res []int
+
+	for num > 0 {
+		if num%26 == 0 && num >= 26 {
+			res = append(res, 26)
+			num /= 26
+			num -= 1
+		} else if num > 26 {
+			res = append(res, num%26)
+			num /= 26
+		} else {
+			res = append(res, num)
+			num = 0
+		}
+	}
+	return res
+}
+
+func main() {
+	fmt.Println(convertToTitle(52))
+}
