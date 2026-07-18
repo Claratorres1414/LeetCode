@@ -2,11 +2,6 @@ package main
 
 import "fmt"
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
 func hasCycle(head *ListNode) bool {
 	s := head
 	f := head
