@@ -40,12 +40,8 @@ func titleToNumber(columnTitle string) int {
 	mult := 1
 
 	for i := len(columnTitle) - 1; i >= 0; i-- {
-		if i > 0 {
-			mult = pow(alfToNum[string(columnTitle[count])], i)
-			result += mult * 26
-		} else {
-			result += alfToNum[string(columnTitle[count])]
-		}
+		mult = pow(26, i)
+		result += mult * alfToNum[string(columnTitle[count])]
 
 		count++
 	}
