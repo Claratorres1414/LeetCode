@@ -1,0 +1,3 @@
+SELECT c.name AS Customers
+FROM customers AS c
+WHERE c.id != ALL(SELECT o.customerId FROM orders AS o)
