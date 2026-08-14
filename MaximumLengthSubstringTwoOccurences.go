@@ -1,20 +1,19 @@
 package main
 
 func maximumLengthSubstring(s string) int {
-	chars := make(map[string]int)
+	chars := make(map[byte]int)
 	var res int
-	l, r := 0, 0
+	l := 0
 
-	for r < len(s) {
-		chars[string(s[r])]++
-		r++
-		l++
-		res++
+	for r := 0; r < len(s); r++ {
+		chars[s[r]]++
 
-		if r < len(s) && chars[string(s[r])] > 2 {
-			res--
-			l--
+		for chars[s[r]] > 2 {
+			chars[s[l]]--
+			l++
 		}
+
+		res = max(res, r-l+1)
 	}
 
 	return res
